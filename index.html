@@ -102,6 +102,99 @@
 
     // Start your code here
     // You may move this JS to another file if you wish
+    errorBtns.forEach((button) => {
+      button.addEventListener('click', () => {
+        console.log('Console Log Demo');
+        let method = button.textContent;
+        let myfunc = func(method);
+        let output = document.querySelector('output');
+        let firstNum = document.querySelector('#first-num').value;
+        let secondNum = document.querySelector('#second-num').value;
+        let operator = document.querySelector('#operator').value;
+        myfunc(eval(`${firstNum} ${operator} ${secondNum}`));
+      });
+    });
+    function deep1(funct) {
+      funct();
+    }
+    function deep2() {
+      console.trace();
+    }
+    let table = {
+      name: 'Kenny',
+      gender: 'male',
+    };
+    function func(method) {
+      let butn = document.createElement('button');
+      let table = {
+        name: 'Kenry',
+        gender: 'male',
+      };
+      if(method == 'Console Log') return (value) => console.log(value);
+      else if(method == 'Console Error') return (value) => console.error(value);
+      else if(method == 'Console Count') return (value) => console.count(value);
+      else if(method == 'Console Warn') return (value) => console.warn(value);
+      else if(method == 'Console Assert') return (value) => console.assert(value % 2 === 0, 'not even');
+      else if(method == 'Console Clear') return () => console.clear();
+      else if(method == 'Console Dir') return (value) => console.dir(butn);
+      else if(method == 'Console dirxml') return (value) => console.dirxml(butn);
+      else if(method == 'Console Group Start') return (value) => console.group('group start');
+      else if(method == 'Console Group End') return (value) => console.groupEnd();
+      else if(method == 'Console Table') return (value) => console.table(table);
+      else if(method == 'Start Timer') return (value) => console.time('timer');
+      else if(method == 'End Timer') return (value) => console.timeEnd('timer');
+      else if(method == 'Console Trace') return (value) => deep1(deep2);
+      else if(method == 'Trigger a Global Error') return value;
+    }
+
+    try {
+      deep3();
+    }
+    catch(error) {
+      console.log('no such funtion');
+    }
+    try {
+      if(table[name] != 'Kenry') throw new Error('wrong name');
+    }
+    catch(error) {
+      console.log(error);
+    }
+    try {
+      let form = document.querySelector('form');
+      form.addEventListener('submit', e => {
+        e.preventDefault();
+        let output = document.querySelector('output');
+        let firstNum = document.querySelector('#first-num').value;
+        let secondNum = document.querySelector('#second-num').value;
+        let operator = document.querySelector('#operator').value;
+        output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
+      });
+    }
+    finally {
+      let form = document.querySelector('form');
+      form.addEventListener('submit', e => {
+        e.preventDefault();
+        let firstNum = document.querySelector('#first-num').value;
+        let secondNum = document.querySelector('#second-num').value;
+        console.log(firstNum + secondNum);
+      });
+    }
+    class IncorrectInputError extends Error {
+      constructor(message) {
+        super(message); // (1)
+        this.name = "IncorrectInputError"; // (2)
+      }
+    }
+    function test() {
+      throw new IncorrectInputError("Input has to be number");
+    }
+    
+    try {
+      test();
+    } catch(err) {
+      console.log(err.message); // "Input has to be number"
+      console.log(err.name); // IncorrectInputError
+    }
   </script>
 </body>
 
